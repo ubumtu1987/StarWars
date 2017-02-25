@@ -195,7 +195,7 @@
    var letterBtn = $("<div>");
 
 
-   letterBtn.addClass("division imageSet selectCharacter");
+   letterBtn.addClass("division imageSet selectCharacter changeCol");
 
    letterBtn.attr("data-letter", unselected[i].name);
    letterBtn.attr("data-energy", unselected[i].healthPoints);
@@ -250,7 +250,7 @@
 
         for( var i = 0 ; i <unselected.length ; i++){
          var letterBtn = $("<div>");
-         letterBtn.addClass("division imageSet chooseDefender");
+         letterBtn.addClass("division imageSet chooseDefender changeCol");
         
          letterBtn.attr("data-letter", unselected[i].name);
          letterBtn.text(unselected[i].name+" "
@@ -341,7 +341,7 @@ $( document ).on( 'click', '.chooseDefender', function () {
              if(doubleTest == true){   
               for(  var i = 0 ; i< unselected.length ; i ++ ){
                 var letterBtn = $("<div>");
-                letterBtn.addClass("division imageSet chooseDefender");
+                letterBtn.addClass("division imageSet chooseDefender changeCol");
                 letterBtn.attr("data-letter", unselected[i].name);
                 //console.log(unselected[i].healthPoints);
                 letterBtn.text(unselected[i].name+" "
