@@ -192,7 +192,7 @@
    
 
 
-   var letterBtn = $("<span>");
+   var letterBtn = $("<div>");
 
 
    letterBtn.addClass("division imageSet selectCharacter");
@@ -227,7 +227,7 @@
                 console.log("main hero attack : "+check);
                 //console.log(unselected);
                 var newDiv = $("<div>");
-                newDiv.addClass("division imageSet");
+                newDiv.addClass("division imageSet listGuy");
                 newDiv.text( mainHero.name+" "
                              +mainHero.healthPoints);
                 //$("#charactersSelect").html(newDiv);
@@ -255,7 +255,11 @@
          letterBtn.attr("data-letter", unselected[i].name);
          letterBtn.text(unselected[i].name+" "
                          +unselected[i].healthPoints);
-         
+
+         var IMAGEAttach = unselected[i].image;
+         var charImgfrom = $("<img>");
+         charImgfrom.attr('src', IMAGEAttach);
+         letterBtn.append(charImgfrom);
          $("#selectEnemy").append(letterBtn);
          }
 
@@ -317,7 +321,7 @@ $( document ).on( 'click', '.chooseDefender', function () {
                   //console.log( enemy);
                   console.log(unselected);
                   var newDiv = $("<div>");
-                  newDiv.addClass("division imageSet");
+                  newDiv.addClass("division imageSet listHuman");
                   //console.log(enemy.healthPoints);
                   newDiv.text( enemy.name+" "
                                +enemy.healthPoints);
@@ -387,7 +391,7 @@ $( document ).on( 'click', '.chooseDefender', function () {
          var reVal = mainHero.healthPoints; 
          if( reVal <=0) reVal= 0; 
          var newDiv = $("<div>");
-         newDiv.addClass("division imageSet");
+         newDiv.addClass("division imageSet listGuy");
          newDiv.text( mainHero.name+" "
                              +reVal);
          var plusimg = $("<img>");
@@ -405,7 +409,7 @@ $( document ).on( 'click', '.chooseDefender', function () {
          reVal =enemy.healthPoints;
          if( reVal <=0) reVal= 0; 
          var newDivs = $("<div>");
-         newDivs.addClass("division imageSet");
+         newDivs.addClass("division imageSet listHuman");
                   //console.log(enemy.healthPoints);
         
          newDivs.text( enemy.name+" "
