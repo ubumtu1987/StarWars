@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="sytle.css">
+    <title>StarWars</title>
+  </head>
+  <body>
+    <div class="container">
+        <div class = "row">
+             <div class = "col-md-4">
+             </div>
+             <div class = "col-md-4">
+             Star Wars RPG!
+             </div>
+             <div class = "col-md-4">
+             </div>
+        </div>
+
+        <div class = "row">
+             <div class = "col-md-12 colorOfWord">
+             Your Characters
+             </div>
+
+        <div class = "row">
+             <div class = "col-md-12 charaters" ID= "charactersSelect">
+             
+             </div>
+        </div>
+
+         <div class = "row">
+             <div class = "col-md-12 colorOfWord">
+             Enemies Available To Attack
+             </div>
+             
+
+         </div>
+
+         <div class = "row">
+             <div class = "col-md-12 MainC" 
+             ID = "selectEnemy">
+             
+             </div>
+             
+
+         </div>
+
+         <div class = "row">
+             <div class = "col-md-12 colorOfWord">
+             Defender
+             </div>
+             
+
+         </div>
+          <div class = "row">
+             <div class = "col-md-12 Defen" id = "defence">
+             
+             </div>
+             
+
+         </div>
+
+         <div class = "row">
+             <div class = "col-md-12" id = "activeB">
+
+             
+             </div>
+             
+
+         </div>
+
+         <div class = "row">
+             <div class = "col-md-12" id = "wording">
+             
+             </div>
+             
+
+         </div>
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+
+  <script type="text/javascript">
+ $(document).ready(function() {
+  
+ var mainHero = null;
+ var enemy = null ;
+ var imgArray = ['image/obi.jpg', 'image/luke.png','image/Sidious.jpg', 
+ 'image/darth.jpg']
+ var nameList = [ "Obi", "luke", "sidious", "darth"];
+ var healthList= [ 120, 100, 150, 180 ];
+ var counterList= [8, 5, 20, 25];
+ var unselected = [];
+ var testStep1 = true;
+ var testSetp2 = true;
+ var testAttack = true; 
+ var testGame = true;
+ var iagesMan = [];
+ /*
+ imagesMan[0]= "url('images/obi.jpg')";
+ imagesMan[1]= "url('images/luke.png')";
+ imagesMan[2]= "url('images/Sidious.jpg')";
+ imagesMan[3]= "url('images/.jpg')";
+*/
+ function character( healthPoints, Attack , CounterAttackPower, img_url) {
+    
+    this.healthPoints = healthPoints ;
+    this.Attack = Attack ; 
+    this.CounterAttackPower = CounterAttackPower ; 
+    this.image = img_url;
+    this.namefrom = function(namefrom){
+    this.name= namefrom;
+    /*console.log("this.name : " + this.name);*/
+   }
+
+    this.doAttack = function(damage) {
+   this.healthPoints = this.healthPoints - damage;  
+      
+   }
+
+   this.showCountAttack = function(){
+     return this.Attack; 
+   }
+
+   this.showAttack = function(){
+     return this.CounterAttackPower; 
+   }
+
+   this.IncreaseAttack = function(){
+    this.Attack= this.Attack+8; 
+   }
+
+   this.back = function(){
+
+    return this;
+   }
+    
+/*
+    this.AAAtack = function(obj) {
+    obj.healthPoints =  obj.healthPoints - this.CounterAttackPower;
+
+   }
+*/
+   
+
+ }
+
+   console.log(healthList[0]);
+   console.log(counterList);
+   
+
+
+   for( var j =0 ; j < nameList.length ; j++){
+    var input = nameList[j]+"";
+    var healthset = healthList[j];
+    var countset = counterList[j];
+    var inputimage = imgArray[j];
+    unselected[j] = new character(  healthset, 0 , countset, inputimage);
+    unselected[j].namefrom(input);
+    console.log(unselected[j].name);
+
+
+
+   }
+    
+    //console.log(unselected);
+
+   
+
+   for( var i = 0 ; i <4 ; i++){
+   
+
+
+   var letterBtn = $("<span>");
+
+
+   letterBtn.addClass("division imageSet selectCharacter");
+
+   letterBtn.attr("data-letter", unselected[i].name);
+   letterBtn.attr("data-energy", unselected[i].healthPoints);
+   letterBtn.text(unselected[i].name+" "
+                  +unselected[i].healthPoints);
+   var addimg = $("<img>");
+   var imgefrom = unselected[i].image;
+   
+   addimg.attr('src', imgefrom);
+   letterBtn.append(addimg);
+   $("#charactersSelect").append(letterBtn);
+
+
+
+
+
+   }
+
+
+   $(".selectCharacter").on("click", function() {
+      if(testStep1 == true ){
+          var newCharacter = $(this).attr("data-letter");
+          for(  var i = 0 ; i< unselected.length ; i ++ ){
+              if(unselected[i].name == newCharacter ){
+                mainHero = unselected[i];
+                unselected.splice(i, 1);
+                mainHero.Attack= 8;
+                var check = mainHero.showAttack();
+                console.log("main hero attack : "+check);
+                //console.log(unselected);
+                var newDiv = $("<div>");
+                newDiv.addClass("division imageSet");
+                newDiv.text( mainHero.name+" "
+                             +mainHero.healthPoints);
+                //$("#charactersSelect").html(newDiv);
+                
+                // pull image from character object
+                var characterImageURL = mainHero.image; 
+                // insert into div with data-letter=name
+                var charImg = $("<img>");
+                charImg.attr('src', characterImageURL);
+                newDiv.append(charImg);
+                $("#charactersSelect").html(newDiv);
+              } 
+
+          }
+          
+         console.log(mainHero); 
+         var btnman =  $("<button>");
+
+
+
+        for( var i = 0 ; i <unselected.length ; i++){
+         var letterBtn = $("<div>");
+         letterBtn.addClass("division imageSet chooseDefender");
+        
+         letterBtn.attr("data-letter", unselected[i].name);
+         letterBtn.text(unselected[i].name+" "
+                         +unselected[i].healthPoints);
+         
+         $("#selectEnemy").append(letterBtn);
+         }
+
+
+          
+
+
+
+        testStep1 = false;
+
+      } 
+
+
+
+    
+
+
+   });
+
+/*
+   $( document ).on( 'click', '.chooseDefender', function () {
+ 
+  
+ });
+
+*/
+
+// GRaham's Code
+/*
+var ObisDiv = $('.Obi');
+var obiImg = $("<img>");
+obiImg.attr('src', 'http:url/of/your/image.jpg');
+
+var imgArray = ['images/image1.jpg', 'images/image2.jpg']
+
+function appendImage(array, div) {
+  // loops through img url array
+  // creates <img> elem 
+  // appends to appropriate div
+}
+
+appendImage(imgArray, $('#defense'));
+
+// End Graham's Code
+*/
+  
+
+$( document ).on( 'click', '.chooseDefender', function () {
+          var doubleTest = true;  
+
+          if(testSetp2 == true){
+          
+            
+            var newDefender = $(this).attr("data-letter");
+            for(  var i = 0 ; i< unselected.length ; i ++ ){
+                if(unselected[i].name == newDefender ){
+                  enemy = unselected[i];
+                  unselected.splice(i, 1);
+                  //console.log( enemy);
+                  console.log(unselected);
+                  var newDiv = $("<div>");
+                  newDiv.addClass("division imageSet");
+                  //console.log(enemy.healthPoints);
+                  newDiv.text( enemy.name+" "
+                               +enemy.healthPoints);
+                  var addingimg = $("<img>");
+                  var characterImages = enemy.image; 
+                  addingimg.attr('src', characterImages);
+                  newDiv.append(addingimg);
+                  $("#defence").html(newDiv);
+                  $("#selectEnemy").html("");
+                  //$('#defense').append(obiImg);
+                  if(unselected.length == 0)
+                    doubleTest = false;
+                }
+
+             }
+       
+             if(doubleTest == true){   
+              for(  var i = 0 ; i< unselected.length ; i ++ ){
+                var letterBtn = $("<div>");
+                letterBtn.addClass("division imageSet chooseDefender");
+                letterBtn.attr("data-letter", unselected[i].name);
+                //console.log(unselected[i].healthPoints);
+                letterBtn.text(unselected[i].name+" "
+                               +unselected[i].healthPoints);
+                var addimg = $("<img>");
+                var imfrom = unselected[i].image;
+                addimg.attr("src",imfrom );
+                letterBtn.append(addimg);
+                $("#selectEnemy").append(letterBtn);
+                   
+
+               }    
+             }else{
+                console.log("HERE");
+                var EraseDiv = $("<div>");
+                EraseDiv.addClass("modified");
+                EraseDiv.text("Empty"); 
+                $("#selectEnemy").html(EraseDiv);
+
+             }   
+            
+             var buttonOfAttack = $("<button>");
+             buttonOfAttack.addClass("activaButton"); 
+             buttonOfAttack.text("Attack!");
+             $("#activeB").html(buttonOfAttack);
+             
+
+             testGame = true;
+             testSetp2=false; 
+
+          }
+
+     });  
+
+
+  
+  $( document ).on( 'click', '.activaButton', function () {
+
+    if (testGame == true){
+
+
+         $("#wording").html("");
+         console.log(mainHero.Attack);
+         enemy.doAttack(mainHero.Attack);
+         //console.log(enemy.healthPoints);
+         mainHero.doAttack(enemy.CounterAttackPower);
+         var reVal = mainHero.healthPoints; 
+         if( reVal <=0) reVal= 0; 
+         var newDiv = $("<div>");
+         newDiv.addClass("division imageSet");
+         newDiv.text( mainHero.name+" "
+                             +reVal);
+         var plusimg = $("<img>");
+         var imgon = mainHero.image;
+         plusimg.attr("src", imgon);
+         newDiv.append(plusimg);
+         $("#charactersSelect").html(newDiv);
+         var showWord = $("<div>"); 
+         showWord.addClass("activaWord"); 
+         showWord.text("You attacked " +enemy.name + " for "+mainHero.Attack + " damage." ); 
+         $("#wording").append(showWord);
+
+
+
+         reVal =enemy.healthPoints;
+         if( reVal <=0) reVal= 0; 
+         var newDivs = $("<div>");
+         newDivs.addClass("division imageSet");
+                  //console.log(enemy.healthPoints);
+        
+         newDivs.text( enemy.name+" "
+                               +reVal);
+         var plusimgs = $("<img>");
+         var imgons = enemy.image;
+         plusimgs.attr("src", imgons);
+         newDivs.append(plusimgs);
+         $("#defence").html(newDivs);
+         var showWords = $("<div>"); 
+         showWords.addClass("activaWord"); 
+         showWords.text(enemy.name + " attacked you back for "+ enemy.CounterAttackPower + 
+          " damage." ); 
+         $("#wording").append(showWords);
+
+         if(mainHero.healthPoints <=0){
+              $("#wording").append("You are defeated ..... GameOver");
+              testGame= false;
+              console.log("mainHero energy : " + mainHero.healthPoints);
+              console.log("Enemy energy : " + enemy.healthPoints);
+              var buttonOfRe = $("<button>");
+              buttonOfRe.addClass("restart"); 
+              buttonOfRe.text("Restart!");
+              $("#activeB").html(buttonOfRe);
+                
+
+
+
+         }else if(enemy.healthPoints <= 0 ){
+              if(unselected.length <=0){ 
+                testGame= false;
+                $("#defence").html("");
+                console.log("mainHero energy : " + mainHero.healthPoints);
+                console.log("Enemy energy : " + enemy.healthPoints);
+                $("#wording").append("You Win!");
+                var buttonOfRe = $("<button>");
+                buttonOfRe.addClass("restart"); 
+                buttonOfRe.text("Restart!");
+                $("#activeB").html(buttonOfRe);
+              }else{ 
+               testGame= false; 
+               testSetp2 = true;
+                $("#defence").html("");
+                var showWords = $("<div>"); 
+                showWords.addClass("activaWord"); 
+                showWords.text("You defeated "+enemy.name + ",  you can choose to fight " +
+                  "another enemy." ); 
+                $("#wording").html(showWords);
+
+                console.log("mainHero energy : " + mainHero.healthPoints);
+                console.log("Enemy energy : " + enemy.healthPoints);
+              }
+         }else{
+
+
+         console.log("mainHero energy : " + mainHero.healthPoints);
+         console.log("Enemy energy : " + enemy.healthPoints);
+         mainHero.IncreaseAttack();
+             
+
+         }
+       
+   }
+
+  });
+
+
+
+
+
+
+
+   $( document ).on( 'click', '.restart', function () {
+     location.href='StarWars.html';
+   });
+
+
+
+
+
+
+});
+
+
+
+
+
+
+
+
+
+
+ </script>
+
+
+
+
+
+  </body>
+
+</html>

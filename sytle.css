@@ -1,0 +1,55 @@
+.colorOfWord{
+	color :red;
+
+
+
+}
+
+
+
+.imageSet{
+	width : 80px;
+	height : 80px;
+  display : inline-block; 
+
+}
+
+.imageSet img{
+	width :100%;
+	height : 100%;
+  
+
+
+}
+
+
+#charactersSelect{
+   width : 960px;
+   min-height : 150px ;
+
+
+
+}
+
+#defence{
+   width : 960px;
+   min-height : 120px ;
+
+
+
+}
+
+#selectEnemy{
+  width : 960px;
+  min-height : 100px ;
+
+
+}
+
+
+
+.modified{
+  max-height : 3rem;
+  
+
+}
